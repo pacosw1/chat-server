@@ -1,0 +1,72 @@
+
+syntax = "proto3";
+package proto;
+
+import "google/protobuf/any.proto";
+
+
+
+service Chat {
+        rpc CreateSession(SessionRequest) returns (UserData) {}
+        rpc JoinRoom(RoomID) returns (stream Message) {}
+        rpc SendMessage(stream Message) returns (MessageSent) {}
+}
+
+message SessionRequest {
+    string ipAddr = 1;
+    string username = 2;
+    string relativeLocation = 3;
+}
+
+message UserData {
+    string userID = 1;
+    string username = 2;
+}
+
+message RoomID {
+    string id = 1; //room id
+    repeated string userID = 2; //users in room
+}
+
+
+//messages sent 
+
+message Message {
+    string userID = 1;
+    string username = 2;
+    string roomID = 3;
+    google.protobuf.Any message = 4;
+    string timestamp = 5;
+
+}
+
+
+//ANY
+
+message ChatMessage {
+    string message = 3;
+}
+
+message MessageSent {
+    string messageID = 1;
+}
+
+message MessageDelivered {
+    string messageID = 1;
+}
+
+message MessageRead {
+    string messageID = 1;
+}
+
+message Typing {
+    bool typing = 1;
+}
+
+message Joined {
+    string location = 4;
+}
+
+message Left {
+    string timestamp = 3;
+}
