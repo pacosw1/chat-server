@@ -227,5 +227,5 @@ var _Chat_serviceDesc = grpc.ServiceDesc{
 			ClientStreams: true,
 		},
 	},
-	Metadata: "proto/contract.proto",
+	Metadata: "contract.proto",
 }

@@ -14,13 +14,15 @@ import (
 )
 
 const (
-	port = ":1290"
+	port = ":9090"
 )
 
 func main() {
 
 	// start grpc server listener
-	lis, err := net.Listen("tcp", port)
+
+	addr := "0.0.0.0" + port
+	lis, err := net.Listen("tcp", addr)
 	if err != nil {
 		log.Fatalf("failed to listen: %v", err)
 	}
@@ -50,6 +52,7 @@ type Server struct {
 //CreateSession create session and store user in server clients
 func (s *Server) CreateSession(ctx context.Context, user *pb.SessionRequest) (*pb.UserData, error) {
 
+	print(user.RelativeLocation)
 	client, err := network.NewClient(user)
 
 	if err != nil {
